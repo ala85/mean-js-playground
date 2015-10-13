@@ -1,0 +1,94 @@
+<div class="container">
+    <section class="row">
+        <div class="col-md-6 col-md-offset-3" style="margin-top: 2em">
+            <input class="form-control col-md-4 search-input" type="text" ng-model="search" placeholder="Search and ID or text" ng-change="figureOutItemsToDisplay()" />
+        </div>
+    </section>
+    <section class="row">
+        <table class="table table-striped" data-sort-name="name" data-sort-order="desc" ng-show="filterCompanyLength >0">
+            <caption><h3>Companies</h3></caption>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>SalesForceId</th>
+                <th>Internal</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ui-sortable ng-repeat="company in pagedCompanyItems">
+                <td ui-sref="admin.company({companyId: company._id})">{{company.name}}</td>
+                <td ui-sref="admin.company({companyId: company._id})">{{company.salesForceId}}</td>
+                <td ui-sref="admin.company({companyId: company._id})">{{company.internal}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <pagination
+                ng-show="filterCompanyLength >0"
+                boundary-links="true"
+                max-size="8"
+                items-per-page="itemsPerPage"
+                total-items="filterCompanyLength"
+                ng-model="currentPage"
+                ng-change="pageChanged()">
+        </pagination>
+    </section>
+    <section class="row">
+        <table class="table table-striped" data-sort-name="name" data-sort-order="desc" ng-show="filterUserLength >0">
+            <caption><h3>Users</h3></caption>
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ui-sortable ng-repeat="user in pagedUserItems">
+                <td ui-sref="admin.user({userId: user._id})">{{user.username}}</td>
+                <td ui-sref="admin.user({userId: user._id})">{{user.name}}</td>
+                <td ui-sref="admin.user({userId: user._id})">{{user.companyId}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <pagination
+                ng-show="filterUserLength >0"
+                boundary-links="true"
+                max-size="8"
+                items-per-page="itemsPerPage"
+                total-items="filterUserLength"
+                ng-model="currentPage"
+                ng-change="pageChanged()">
+        </pagination>
+
+    </section>
+
+    <section class="row">
+        <table class="table table-striped" data-sort-name="name" data-sort-order="desc" ng-show="filterExperienceLength >0">
+            <caption><h3>Experiences</h3></caption>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>CompanyId</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ui-sortable ng-repeat="experience in pagedExperienceItems">
+                <td ui-sref="admin.experience({experienceId: experience._id})">{{experience.name}}</td>
+                <td ui-sref="admin.experience({experienceId: experience._id})">{{experience.companyId}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <pagination
+                ng-show="filterExperienceLength >0"
+                boundary-links="true"
+                max-size="8"
+                items-per-page="itemsPerPage"
+                total-items="filterExperienceLength"
+                ng-model="currentPage"
+                ng-change="pageChanged()">
+        </pagination>
+
+    </section>
+</div>
