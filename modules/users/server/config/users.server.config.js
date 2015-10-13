@@ -26,10 +26,9 @@ module.exports = function (app, db) {
     });
   });
 
-  // Initialize strategies
-  config.utils.getGlobbedPaths(path.join(__dirname, './strategies/**/*.js')).forEach(function (strategy) {
-    require(path.resolve(strategy))(config);
-  });
+  // Initialize local strategy
+  var localStrategy = config.utils.getGlobbedPaths(path.join(__dirname, './local.js'))[0];
+  require(path.resolve(localStrategy))(config);
 
   // Add passport's middleware
   app.use(passport.initialize());
