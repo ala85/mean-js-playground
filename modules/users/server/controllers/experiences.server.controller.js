@@ -64,7 +64,6 @@ exports.listExperiences = function (req, res) {
                 message: errorHandler.getErrorMessage(err)
             });
         }
-
         res.json(experiences);
     });
 };

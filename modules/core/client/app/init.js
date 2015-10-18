@@ -18,12 +18,16 @@ angular.module(ApplicationConfiguration.applicationModuleName).run(function ($ro
   $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
     if (toState.data && toState.data.roles && toState.data.roles.length > 0) {
       var allowed = false;
-      toState.data.roles.forEach(function (role) {
-        if (Authentication.user.roles !== undefined && Authentication.user.roles.indexOf(role) !== -1) {
+
+      var user = Authentication.user;
+
+      if (user && user.username.indexOf("zmags.com") !== -1) {
           allowed = true;
-          return true;
-        }
-      });
+          $state.go('authentication.signin').then(function () {
+              storePreviousState(toState, toParams);
+          });
+      }
+
 
       if (!allowed) {
         event.preventDefault();
